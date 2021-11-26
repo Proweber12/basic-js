@@ -32,7 +32,38 @@ Infinity делать не нужно, однако, в случае если б
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  /**
+   * Производит операции сложения, вычитания, умножения и деления
+   * (арефметические знаки передаются в третий параметр operation)
+   * над двумя числами, переданными в виде аргументов arg1 и arg2
+   *
+   * @param {number} arg1 первый аргумент
+   * @param {number} arg2 второй аргумент
+   * @param {string} operation арефметический знак
+   * @return {number} сумма, разность, произведение, частное или NaN
+   * в зависимости от введенного третьего параметра
+   */
+
+  function mathOperation(arg1, arg2, operation) {
+    if (operation == '+') {
+      return arg1 + arg2;
+    } else if (operation == '-') {
+      return Math.max(arg1, arg2) - Math.min(arg1, arg2);
+    } else if (operation == '*') {
+      return arg1 * arg2;
+    } else if (operation == '/') {
+      return arg1 / arg2;
+    } else {
+      return NaN;
+    }
+  }
+
+console.log(mathOperation(5, 3, "+"));
+console.log(mathOperation(3, 33, "-"));
+console.log(mathOperation(5, 3, "*"));
+console.log(mathOperation(6, 3, "/"));
+console.log(mathOperation(5, 3, ";)"));
+
 </script>
 </body>
 </html>
