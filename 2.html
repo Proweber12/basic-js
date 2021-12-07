@@ -58,7 +58,8 @@
     "dropdown" следующую разметку:
       <a href="#">link</a>
      */
-    document.querySelector("div.dropdown").insertAdjacentHTML('afterbegin', '<a href="#">link</a>')
+    const divDropdown = document.querySelector("div.dropdown");
+    divDropdown.insertAdjacentHTML('afterbegin', '<a href="#">link</a>');
 
     /*
     5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
@@ -69,12 +70,14 @@
     6. Добавьте атрибут data-dd со значением 3 элементу у которого существует
     атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
      */
-
+    const tag = document.querySelector('[aria-labelledby="dropdownMenuButton"]');
+    tag.dataset.dd = '3';
 
     /*
     7. Удалите атрибут type у элемента с классом "dropdown-toggle".
      */
-
+    const dropdownToggle = document.querySelector(".dropdown-toggle");
+    dropdownToggle.removeAttribute('type');
 
     /*
     8. Выведите в консоль все имеющиеся атрибуты и их значения тега у которого
@@ -82,6 +85,13 @@
     Вывод каждого атрибута и значений должен выглядеть следующим образом (пример):
     Атрибут "class" содержит значение "btn btn-secondary dropdown-toggle"
      */
+    /*
+    P.S Выше было задание удалить класс btn-secondary, если он есть, поэтому его нет
+    */
+    const tagBtn = document.querySelector('[class="btn dropdown-toggle"]').attributes;
+    for (let i = 0; i < tagBtn.length; i++) {
+      console.log(`Атрибут "${tagBtn[i].name}" содержит значение "${tagBtn[i].value}"`);
+    }
 
 
   </script>
