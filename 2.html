@@ -4,120 +4,116 @@
 <head>
   <meta charset="UTF-8">
   <title>Homework</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+  <style>
+    .message {
+      width: 150px;
+      padding: 20px;
+      background: lightgoldenrodyellow;
+      border: 1px solid orange;
+      visibility: hidden;
+    }
+
+    .error {
+      border: 0.3rem solid red;
+    }
+  </style>
 </head>
 
 <body>
   <!--
 Обязательное задание.
 
-Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
-Необходимо создать функцию-конструктор/класс для поста в социальной сети.
-Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
-Пост должен хранить:
-1. Автора поста (имени достаточно).
-2. Текст поста.
-3. Дату и время последнего изменения поста.
-Данные автора поста и текст поста необходимо передавать при создании
-экземпляра объекта.
-Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
-менять текст поста.
-
----
-
-Необходимо создать функцию-конструктор/класс для закрепленного поста в
-социальной сети.
-Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
-Закрепленный пост должен наследоваться от обычного поста.
-Данные автора поста и текст поста необходимо передавать при создании
-экземпляра объекта.
-Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
-будет лежать значение false (это свойство будет обозначать, будет ли наш
-закрепленный пост подсвечен).
-У экземпляров объекта закрепленного поста должен быть метод с названием
-`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
-(будет менять свойство `highlighted`).
-
----
-
-Подсказки:
-1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
-2. Обратите внимание что пост хранит "дату и время последнего изменения
-поста", это значит что если пост кто-то изменит (например вызовет какой-то
-метод, который изменит что-то в посте), дата и время последнего изменения
-поста также должна измениться.
-3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
-что-нибудь пропустить.
-4. Если непонятно условие - задайте вопрос.
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
 -->
+
+  <input id="from" type="text">
+  В инпуте написано: <span></span>
+
+  <br>
+
+  <button class="messageBtn">Показать блок</button>
+  <div class="message">
+    Привет :)
+  </div>
+
+  <br>
+
+  <form>
+    <label>
+      Первый инпут:
+      <input class="form-control" type="text">
+    </label>
+    <br>
+    <br>
+    <label>
+      Второй инпут:
+      <select class="form-control">
+        <option value=""></option>
+        <option value="1">Один</option>
+        <option value="2">Два</option>
+      </select>
+    </label>
+    <br>
+    <br>
+    <button>Отправить</button>
+  </form>
+
   <script>
     "use strict";
 
-    // Функция-конструктор PostES5
-    function PostES5(name, text, date) {
-      this.name = name;
-      this.text = text;
-      this.date = new Date().toLocaleString('ru-RU');
-      console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата создания: ${this.date}`);
+    /*
+    1. При изменении значения в input с id="from", значение содержащееся в нем
+    должно моментально отображаться в span. То есть при печати в input'е тег span
+    также должен меняться.
+    */
+    document.querySelector('#from').addEventListener('input', event => {
+      document.querySelector('span').innerText = event.target.value;
     }
+    );
 
-    PostES5.prototype.edit = function (textEdit) {
-      this.text = textEdit;
-      console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата изменения: ${this.date}`);
-    };
-
-    // Функция-конструктор AttachedPostES5
-    function AttachedPostES5(name, text, highlighted) {
-      PostES5.call(this, name, text);
-      this.highlighted = false;
+    /*
+    2. При клике на кнопку с классом messageBtn необходимо элементу с классом
+    message:
+    1) добавить два класса: animate__animated и animate__fadeInLeftBig
+    2) поставить данному элементу стиль visibility в значение 'visible'.
+     */
+    document.querySelector('.messageBtn').addEventListener('click', () => {
+      const message = document.querySelector('.message');
+      message.classList.add('animate__animated', 'animate__fadeInLeftBig');
+      message.style.visibility = 'visible';
     }
+    );
 
-    AttachedPostES5.prototype = Object.create(PostES5.prototype);
-    AttachedPostES5.prototype.constructor = AttachedPostES5;
-
-    AttachedPostES5.prototype.makeTextHighlighted = function () {
-      console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата изменения: ${this.date}. Статус: ${this.highlighted = true}`);
-    };
-
-    const post = new PostES5('Павел', 'Привет, мир!');
-    post.edit("Привет, страна!");
-
-
-    const attachedPost = new AttachedPostES5('Иван', 'Как дела у вас?');
-    attachedPost.makeTextHighlighted();
-
-    // Класс PostES6
-    class PostES6 {
-      constructor(name, text, date) {
-        this.name = name;
-        this.text = text;
-        this.date = new Date().toLocaleString('ru-RU');
-        console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата создания: ${this.date}`);
-      }
-
-      edit(textEdit) {
-        this.text = textEdit;
-        console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата изменения: ${this.date}`);
-      }
-    }
-
-    // Класс AttachedPostES6
-    class AttachedPostES6 extends PostES5 {
-      constructor(name, text, highlighted) {
-        super(name, text)
-        this.highlighted = false;
-      }
-
-      makeTextHighlighted() {
-        console.log(`Автор: ${this.name}. Пост: ${this.text}. Дата изменения: ${this.date}. Статус: ${this.highlighted = true}`);
+    /*
+    3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
+    форме. Если какое-либо поле не заполнено, форма не должна отправляться, также
+    должны быть подсвечены незаполненные поля (необходимо поставить класс error
+    незаполненным полям).
+    Как только пользователь начинает заполнять какое-либо поле, необходимо,
+    при вводе в данное поле, произвести проверку:
+    Если поле пустое, необходимо данное поле подсветить (поставить класс error
+    данному полю).
+    Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
+     */
+    const formEl = document.querySelector('form');
+    const inputEl = document.querySelector('input.form-control');
+    const optionEls = document.querySelectorAll('.form-control option');
+    formEl.addEventListener('submit', event => {
+      for (let optionEl of optionEls) {
+        if (inputEl.value === '') {
+          event.preventDefault();
+          inputEl.classList.add('.erorr');
+        } else if (optionEl.value === '') {
+          event.preventDefault();
+          inputEl.classList.add('.erorr');
+        }
       }
     }
-
-    const classPost = new PostES6('Лео', 'Какая прекрасная погода сегодня!');
-    classPost.edit("А у вас тоже хорошая погода?");
+    );
 
 
-    const classAttachedPost = new AttachedPostES6('Сергей', 'Люблю гулять на свежем воздухе!');
-    classAttachedPost.makeTextHighlighted();
   </script>
 </body>
 
