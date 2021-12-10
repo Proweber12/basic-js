@@ -99,16 +99,20 @@
      */
     const formEl = document.querySelector('form');
     const inputEl = document.querySelector('input.form-control');
-    const optionEls = document.querySelectorAll('.form-control option');
+    const selectEl = document.querySelector('select.form-control');
     formEl.addEventListener('submit', event => {
-      for (let optionEl of optionEls) {
-        if (inputEl.value === '') {
-          event.preventDefault();
-          inputEl.classList.add('.erorr');
-        } else if (optionEl.value === '') {
-          event.preventDefault();
-          inputEl.classList.add('.erorr');
-        }
+      console.log(selectEl.value);
+      if (inputEl.value === '') {
+        event.preventDefault();
+        inputEl.classList.add('error');
+      } else {
+        inputEl.classList.remove('error');
+      }
+      if (selectEl.value != '1' && selectEl.value != '2') {
+        event.preventDefault();
+        selectEl.classList.add('error');
+      } else {
+        selectEl.classList.remove('error');
       }
     }
     );

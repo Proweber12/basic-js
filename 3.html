@@ -41,24 +41,43 @@
     /*
     1. При наведении на любую из звезд, данной звезде должен ставиться класс
     golden, также такой класс должен ставиться всем звездам до нее слева.
+    P.S. Капец я долго искал нужные параметры(.previousElementSibling - особенно долго), .contains)
+    Зато хорошо потренировался Гуглить)
     */
-    document.querySelector('i').addEventListener('mouseover', () => {
-      document.querySelectorAll('i').classList.add('golden');
-    }
-    );
+    document.querySelector('.stars_container').addEventListener('mouseover', event => {
+      if (event.target.classList.contains('fas')) {
+        let star = event.target;
+        while (star) {
+          star.classList.add('golden');
+          star = star.previousElementSibling;
+        }
+      }
+    });
 
     /*
     2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
     задания должны быть удалены.
      */
+    document.querySelector('.stars_container').addEventListener('mouseout', event => {
+      if (event.target.classList.contains('fas')) {
+        let star = event.target;
+        while (star) {
+          star.classList.remove('golden');
+          star = star.previousElementSibling;
+        }
+      }
+    });
 
 
     /*
     3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
     звезды (временно могут становиться черными). Почему так? Напишите словами.
     Можем ли мы это исправить? Если да, то предложите решение.
+    Это из-за того, что между звёздами есть промежутки
+    (ссылка на мой скриншот с временного хранилища: https://ibb.co/GFNVLHN)
+    Исправить можно, но это как-то не красиво, какого-то идеального метода не нашёл
     */
-
+    document.querySelector('.stars_container').style.cssText = 'word-spacing: -4px;';
 
   </script>
 </body>

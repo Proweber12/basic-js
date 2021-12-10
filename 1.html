@@ -61,14 +61,14 @@
     3. При клике на кнопку "В корзину" название кнопки должно поменяться на
     "Добавлено" и кнопка должна стать неактивной.
      */
-    const btns = document.querySelectorAll('button');
-    for (let btn of btns) {
-      btn.addEventListener('click', event => {
+    const bodyTag = document.body;
+    bodyTag.addEventListener('click', event => {
+      const btns = document.getElementsByTagName('button');
+      if (event.target.tagName === 'BUTTON') {
         event.target.textContent = 'Добавлено';
-        btn.disabled = true;
+        event.target.disabled = true;
       }
-      );
-    }
+    });
 
     /*
     4. Создайте полную (глубокую) копию элемента с классом product, измените в
@@ -78,13 +78,19 @@
     отображенный товар на странице на созданную копию. У данной копии также
     должен правильно работать код из 3-го задания.
      */
-
+    const deepClone = document.querySelector('.product:nth-child(3)').cloneNode(true);
+    const productThree = document.querySelector('.product:nth-child(3)');
+    productThree.after(deepClone);
+    document.querySelector('.product:nth-child(4) div').innerText = 'Товар 4';
+    document.querySelector('.product:nth-child(4) img').src = 'https://picsum.photos/id/1080/200/300';
+    productThree.replaceWith(document.querySelector('.product:nth-child(4)'))
 
     /*
     5. По истечению 2 секунд с момента открытия страницы первый товар должен быть
     удален из html.
      */
-
+    setTimeout(function () { document.querySelector('.product:first-child').remove() },
+      2000);
 
   </script>
 </body>
